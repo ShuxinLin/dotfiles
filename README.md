@@ -21,3 +21,10 @@ apt install ttf-mscorefonts-installer rofi picom libqt5svg5 qml-module-qtquick-c
 
 ```
 
+```
+mkdir -p /home/$username/.config
+cp .Xresources /home/$username
+cp -R dotfiles/* /home/$username/.config/
+chown -R $username:$username /home/$username
+
+```
