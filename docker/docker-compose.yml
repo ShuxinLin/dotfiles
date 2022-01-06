@@ -1,0 +1,44 @@
+---
+version: "2.1"
+services:
+  plex:
+    image: lscr.io/linuxserver/plex
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - PLEX_CLAIM=
+    volumes:
+      - /home/susie/config/plex:/config
+      - /home/susie/Videos/tv:/tv
+      - /home/susie/Videos/movies:/movies
+    restart: unless-stopped
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - WEBUI_PORT=8080
+    volumes:
+      - /home/susie/config/qbittorrent:/config
+      - /home/susie/Downloads:/downloads
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8080:8080
+    restart: unless-stopped
+  chinesesubfinder:
+    image: allanpk716/chinesesubfinder:latest
+    volumes:
+      - /home/susie/config/chinesesubfinder:/config
+      - /home/susie/Videos:/media
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    restart: unless-stopped
+    
